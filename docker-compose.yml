@@ -1,0 +1,24 @@
+services:
+  shtytlkr:
+    image: umdoobby/node-web-app:latest
+    container_name: shtytlkr
+    restart: unless-stopped
+    networks:
+      - reverse-proxy
+    ports:
+      - "3025:8080"
+    volumes:
+      - /opt/shtytlkr/:/shtytlkr
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.shtytlkr.rule=Host(`shtytlkr.your-awesome-site.com`)"
+      - "traefik.http.routers.shtytlkr.entrypoints=websecure"
+    environment:
+      - PORT=3025
+      - TELEGRAM_TOKEN=your-token-here
+      - OUTPUT_DIR=/shtytlkr/output
+      - URL=https://shtytlkr.your-awesome-site.com
+
+networks:
+  reverse-proxy:
+    external: true
