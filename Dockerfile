@@ -1,4 +1,4 @@
-FROM node:current-alpine
+FROM node:latest
 
 # Create app directory
 WORKDIR /usr/src/app
@@ -8,6 +8,7 @@ WORKDIR /usr/src/app
 # where available (npm@5+)
 COPY package*.json ./
 
+RUN apt-get update && apt-get install -y libpulse0
 RUN npm install
 # If you are building your code for production
 # RUN npm ci --only=production
@@ -16,5 +17,5 @@ RUN npm install
 COPY . .
 
 ENV DEBUG=express:*
-EXPOSE 3025
-CMD [ "node", "server.js" ]
+EXPOSE 3000
+CMD [ "node", "src/server.js" ]

@@ -6,9 +6,7 @@ services:
     networks:
       - reverse-proxy
     ports:
-      - "3025:8080"
-    volumes:
-      - /opt/shtytlkr/:/shtytlkr
+      - "3001:3000"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.shtytlkr.rule=Host(`shtytlkr.your-awesome-site.com`)"
@@ -16,8 +14,9 @@ services:
     environment:
       - PORT=3025
       - TELEGRAM_TOKEN=your-token-here
-      - OUTPUT_DIR=/shtytlkr/output
-      - URL=https://shtytlkr.your-awesome-site.com
+      - DOMAIN=shtytlkr.your-domain.com
+      - WEBHOOK_PATH=/telegram-webhook-uri
+      - SECRET_KEY=random-alphanumeric-string
 
 networks:
   reverse-proxy:

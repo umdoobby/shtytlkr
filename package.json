@@ -25,6 +25,8 @@
   },
   "homepage": "https://github.com/umdoobby/shtytlkr#readme",
   "dependencies": {
-    "express": "^4.18.2"
+    "dectalk": "^1.3.1",
+    "dotenv": "^16.0.3",
+    "telegraf": "^4.11.2"
   }
 }
