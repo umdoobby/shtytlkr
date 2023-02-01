@@ -15,10 +15,12 @@ const { say } = require('dectalk');
 // Configure the bot
 const bot = new Telegraf(TOKEN);
 
+// '/start' command
 bot.start(async (ctx) => {
     await ctx.reply("Welcome to Shtytlkr! You can tell me what to say and I will say it! Use /say to tell me what to say, or, use /help for more information about me.");
 });
 
+// '/help' command
 bot.help(async (ctx) => {
     await ctx.reply("I'm a simple bot written by @umdoobby that will say things that you tell me!\r\n\r\n" +
         "I'm opensource so if you'd like to see how I work you can check me out on GitHub. " +
@@ -27,22 +29,24 @@ bot.help(async (ctx) => {
         "so please be patent with me. Also, I have a hard limit of " + charLimit + " characters.");
 });
 
+// '/quit' command
 bot.command('quit', async (ctx) => {
     await ctx.reply("Come back any time, I'll be here if you need me.");
     await ctx.telegram.leaveChat(ctx.message.chat.id);
     await ctx.leaveChat();
 });
 
+// '/say' command
 bot.command('say', async (ctx) => {
     try {
         let message = ctx.message.text;
-        message = message.slice(3).trim();
+        message = message.slice(4).trim();
         if (message.length > 0) {
             if (message.length > charLimit) {
                 await ctx.reply(`I'm sorry but I'm limited to ${charLimit} characters. Your message was ${message.length} characters long. Please shorten it and try again.`);
             } else {
                 await ctx.replyWithVoice({
-                    source: say(message)
+                    source: await say(message)
                 });
             }
         } else {
@@ -54,7 +58,7 @@ bot.command('say', async (ctx) => {
     }
 });
 
-// Start webhook via launch method (preferred)
+// Configure the webhook and launch the bot
 bot.launch({
     webhook: {
         domain: domain,
@@ -66,6 +70,6 @@ bot.launch({
     console.log(`Shtytlkr is now listening at https://${domain}${path}`);
 });
 
-// Enable graceful stop
+// Graceful stop as recommended by telegraf.js
 process.once('SIGINT', () => bot.stop('SIGINT'));
 process.once('SIGTERM', () => bot.stop('SIGTERM'));

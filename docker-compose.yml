@@ -1,6 +1,6 @@
 services:
   shtytlkr:
-    image: umdoobby/node-web-app:latest
+    image: umdoobby/shtytlkr:latest
     container_name: shtytlkr
     restart: unless-stopped
     networks:
@@ -12,7 +12,7 @@ services:
       - "traefik.http.routers.shtytlkr.rule=Host(`shtytlkr.your-awesome-site.com`)"
       - "traefik.http.routers.shtytlkr.entrypoints=websecure"
     environment:
-      - PORT=3025
+      - PORT=3000
       - TELEGRAM_TOKEN=your-token-here
       - DOMAIN=shtytlkr.your-domain.com
       - WEBHOOK_PATH=/telegram-webhook-uri
