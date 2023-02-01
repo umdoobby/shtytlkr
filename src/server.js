@@ -22,8 +22,8 @@ bot.start(async (ctx) => {
 
 // '/help' command
 bot.help(async (ctx) => {
-    await ctx.reply("I'm a simple bot written by @umdoobby that will say things that you tell me!\r\n\r\n" +
-        "I'm opensource so if you'd like to see how I work you can check me out on GitHub. " +
+    await ctx.reply("I'm a simple bot written by @umdoobby that will say whatever you want!\r\n\r\n" +
+        "I'm open source, so, if you'd like to see how I work you can check me out on GitHub. " +
         "https://github.com/umdoobby/shtytlkr\r\n\r\n" +
         "/say <message> = Use this command to tell me what to say (or sing). It may take me a few moments to generate the recording " +
         "so please be patent with me. Also, I have a hard limit of " + charLimit + " characters.");
@@ -42,8 +42,14 @@ bot.command('say', async (ctx) => {
         let message = ctx.message.text;
         message = message.slice(4).trim();
         if (message.length > 0) {
-            if (message.length > charLimit) {
-                await ctx.reply(`I'm sorry but I'm limited to ${charLimit} characters. Your message was ${message.length} characters long. Please shorten it and try again.`);
+            if (charLimit > 0) {
+                if (message.length > charLimit) {
+                    await ctx.reply(`I'm sorry but I'm limited to ${charLimit} characters. Your message was ${message.length} characters long. Please shorten it and try again.`);
+                } else {
+                    await ctx.replyWithVoice({
+                        source: await say(message)
+                    });
+                }
             } else {
                 await ctx.replyWithVoice({
                     source: await say(message)

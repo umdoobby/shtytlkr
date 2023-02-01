@@ -17,6 +17,7 @@ services:
       - DOMAIN=shtytlkr.your-domain.com
       - WEBHOOK_PATH=/telegram-webhook-uri
       - SECRET_KEY=random-alphanumeric-string
+      - CHAR_LIMIT=1000
 
 networks:
   reverse-proxy:
