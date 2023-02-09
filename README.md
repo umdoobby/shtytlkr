@@ -10,4 +10,4 @@ Here are some fun resources for how to use some of the more advanced features of
  - [Modern port of DECtalk](https://github.com/dectalk/dectalk)
  - [Example songs](https://steamcommunity.com/sharedfiles/filedetails/?id=482628855)
 
-The current bot will read anything you give it via the `/say` command, up to 1000 characters.
+The current bot will read anything you give it via the `/say` command, up to 3000 characters.
