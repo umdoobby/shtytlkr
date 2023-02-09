@@ -11,6 +11,7 @@ const charLimit = process.env.CHAR_LIMIT;
 // Initialize the required stuff
 const { Telegraf } = require('telegraf');
 const { say } = require('dectalk');
+const unidecode = require('unidecode');
 
 // Configure the bot
 const bot = new Telegraf(TOKEN);
@@ -42,6 +43,7 @@ bot.command('say', async (ctx) => {
         let message = ctx.message.text;
         message = message.slice(4).trim();
         if (message.length > 0) {
+            message = unidecode(message);
             if (charLimit > 0) {
                 if (message.length > charLimit) {
                     await ctx.reply(`I'm sorry but I'm limited to ${charLimit} characters. Your message was ${message.length} characters long. Please shorten it and try again.`);
